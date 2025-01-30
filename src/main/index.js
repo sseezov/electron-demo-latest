@@ -48,7 +48,7 @@ async function createPartner(event, partner) {
   const { type, name, ceo, email, phone, address, rating } = partner;
   try {
     await client.query(`INSERT into partners (organization_type, name, ceo, email, phone, address, rating) values('${type}', '${name}', '${ceo}', '${email}', '${phone}', '${address}', ${rating})`)
-    dialog.showMessageBox({message: 'Успех! Партнер создан'})
+    dialog.showMessageBox({ message: 'Успех! Партнер создан' })
   } catch (e) {
     console.log(e)
     dialog.showErrorBox('Ошибка', "Партнер с таким именем уже есть")
@@ -72,7 +72,7 @@ async function updatePartner(event, partner) {
     await client.query(`UPDATE partners
       SET name = '${name}', organization_type = '${type}', ceo='${ceo}', email='${email}', phone='${phone}', address='${address}', rating='${rating}'
       WHERE partners.id = ${id};`)
-      dialog.showMessageBox({message: 'Успех! Данные обновлены'})
+    dialog.showMessageBox({ message: 'Успех! Данные обновлены' })
     return;
   } catch (e) {
     dialog.showErrorBox('Невозможно создать пользователя', 'Такой пользователь уже есть')
@@ -85,6 +85,7 @@ function createWindow() {
     width: 900,
     height: 670,
     show: false,
+    icon: join(__dirname, '../../resources/icon.ico'),
     autoHideMenuBar: true,
     ...(process.platform === 'linux' ? { icon } : {}),
     webPreferences: {
