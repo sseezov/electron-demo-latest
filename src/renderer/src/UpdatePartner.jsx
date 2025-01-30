@@ -3,10 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { Link } from "react-router";
 
 export default function UpdatePartner() {
-  const messages = {
-    ok: 'Успех!\nДанные пользователя успешно обновлены!',
-    error: 'Ошибка!\n'
-  }
   useEffect(() => { document.title = 'Обновить партнера' }, [])
   const location = useLocation();
   const [partner, setPartner] = useState(location.state.partner);
