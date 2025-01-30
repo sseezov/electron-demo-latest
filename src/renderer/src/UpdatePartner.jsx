@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import { useLocation } from 'react-router-dom';
+import { Link } from "react-router";
 
 export default function UpdatePartner() {
   const messages = {
     ok: 'Успех!\nДанные пользователя успешно обновлены!',
     error: 'Ошибка!\n'
   }
-  useEffect(() => { document.title = 'Создать партнера' }, [])
+  useEffect(() => { document.title = 'Обновить партнера' }, [])
   const location = useLocation();
   const [partner, setPartner] = useState(location.state.partner);
 
@@ -22,13 +23,14 @@ export default function UpdatePartner() {
       address: e.target.address.value,
       rating: e.target.rating.value
     }
-
+    const res = await window.api.updatePartner(updPartner);
     setPartner(updPartner)
     document.querySelector('form').reset()
   }
 
   return <div className="form">
-    <h1>Создать партнера</h1>
+    <Link to={'/'}><button>{"<-- Назад"}</button></Link>
+    <h1>Обновить партнера</h1>
     <form onSubmit={(e) => submitHandler(e)}>
       <label htmlFor="name">Наименование:</label>
       <input id="name" type="text" required defaultValue={partner.name} />

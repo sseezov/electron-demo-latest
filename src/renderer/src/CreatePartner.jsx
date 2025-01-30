@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import { Link } from "react-router";
 
 export default function CreatePartner() {
   const messages = {
@@ -17,11 +18,14 @@ export default function CreatePartner() {
       address: e.target.address.value,
       rating: e.target.rating.value
     }
-
+    const res = await window.api.createPartner(partner);
     document.querySelector('form').reset()
+    alert(messages[res])
   }
 
   return <div className="form">
+    <Link to={'/'}><button>{"<-- Назад"}</button></Link>
+    
     <h1>Создать партнера</h1>
     <form onSubmit={(e) => submitHandler(e)}>
       <label htmlFor="name">Наименование:</label>
