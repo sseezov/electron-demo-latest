@@ -23,7 +23,7 @@ export default function UpdatePartner() {
       address: e.target.address.value,
       rating: e.target.rating.value
     }
-    const res = await window.api.updatePartner(updPartner);
+    await window.api.updatePartner(updPartner);
     setPartner(updPartner)
     document.querySelector('form').reset()
   }

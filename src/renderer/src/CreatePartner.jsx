@@ -2,10 +2,6 @@ import { useEffect } from "react"
 import { Link } from "react-router";
 
 export default function CreatePartner() {
-  const messages = {
-    ok: 'Успех!\nПользователь успешно добавлен!',
-    error: 'Ошибка!\nПользователь с таким именем уже существует!'
-  }
   useEffect(() => { document.title = 'Создать партнера' }, [])
   async function submitHandler(e) {
     e.preventDefault()
@@ -18,9 +14,8 @@ export default function CreatePartner() {
       address: e.target.address.value,
       rating: e.target.rating.value
     }
-    const res = await window.api.createPartner(partner);
+    await window.api.createPartner(partner);
     document.querySelector('form').reset()
-    alert(messages[res])
   }
 
   return <div className="form">
