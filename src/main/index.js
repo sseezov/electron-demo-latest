@@ -2,23 +2,12 @@ import { app, shell, BrowserWindow, ipcMain, dialog } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
-import pg from 'pg'
+
+import connectDB from './db';
 
 async function getPartners() {
-  const { Client } = pg;
-  const user = 'postgres';
-  const password = '219219';
-  const host = 'localhost';
-  const port = '5432';
-  const database = 'demo_2025';
-
-  const client = new Client({
-    user, password, host, port, database
-  })
-  await client.connect()
-
   try {
-    const response = await client.query(`SELECT T1.*,
+    const response = await global.dbclient.query(`SELECT T1.*,
     CASE WHEN sum(T2.production_quantity) > 300000 THEN 15
     WHEN sum(T2.production_quantity) > 50000 THEN 10
     WHEN sum(T2.production_quantity) > 10000 THEN 5
@@ -33,21 +22,10 @@ async function getPartners() {
   }
 }
 async function createPartner(event, partner) {
-  const { Client } = pg;
-  const user = 'postgres';
-  const password = '219219';
-  const host = 'localhost';
-  const port = '5432';
-  const database = 'demo_2025';
-
-  const client = new Client({
-    user, password, host, port, database
-  })
-  await client.connect()
-
   const { type, name, ceo, email, phone, address, rating } = partner;
+
   try {
-    await client.query(`INSERT into partners (organization_type, name, ceo, email, phone, address, rating) values('${type}', '${name}', '${ceo}', '${email}', '${phone}', '${address}', ${rating})`)
+    await global.dbclient.query(`INSERT into partners (organization_type, name, ceo, email, phone, address, rating) values('${type}', '${name}', '${ceo}', '${email}', '${phone}', '${address}', ${rating})`)
     dialog.showMessageBox({ message: 'Успех! Партнер создан' })
   } catch (e) {
     console.log(e)
@@ -55,21 +33,10 @@ async function createPartner(event, partner) {
   }
 }
 async function updatePartner(event, partner) {
-  const { Client } = pg;
-  const user = 'postgres';
-  const password = '219219';
-  const host = 'localhost';
-  const port = '5432';
-  const database = 'demo_2025';
-
-  const client = new Client({
-    user, password, host, port, database
-  })
-  await client.connect()
-
   const { id, type, name, ceo, email, phone, address, rating } = partner;
+
   try {
-    await client.query(`UPDATE partners
+    await global.dbclient.query(`UPDATE partners
       SET name = '${name}', organization_type = '${type}', ceo='${ceo}', email='${email}', phone='${phone}', address='${address}', rating='${rating}'
       WHERE partners.id = ${id};`)
     dialog.showMessageBox({ message: 'Успех! Данные обновлены' })
@@ -110,11 +77,15 @@ function createWindow() {
   }
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
   electronApp.setAppUserModelId('com.electron')
+
+  global.dbclient = await connectDB();
+
   ipcMain.handle('getPartners', getPartners)
   ipcMain.handle('createPartner', createPartner)
   ipcMain.handle('updatePartner', updatePartner)
+
   app.on('browser-window-created', (_, window) => {
     optimizer.watchWindowShortcuts(window)
   })
