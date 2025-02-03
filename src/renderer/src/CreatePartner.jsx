@@ -8,7 +8,7 @@ export default function CreatePartner() {
     const partner = {
       type: e.target.type.value,
       name: e.target.name.value,
-      ceo: e.target.CEO.value,
+      ceo: e.target.ceo.value,
       email: e.target.email.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
@@ -36,8 +36,8 @@ export default function CreatePartner() {
       <input id="rating" type="number" step="1" min='0' max='100' required />
       <label htmlFor="address">Адрес:</label>
       <input id="address" type="text" required />
-      <label htmlFor="CEO">ФИО директора:</label>
-      <input id="CEO" type="text" required />
+      <label htmlFor="ceo">ФИО директора:</label>
+      <input id="ceo" type="text" required />
       <label htmlFor="phone">Телефон:</label>
       <input id="phone" type="tel" required />
       <label htmlFor="email">Email компании:</label>

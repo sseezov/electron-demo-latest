@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
-import s from './assets/s.png'
+import logo from './assets/s.png'
 
 function App() {
   const navigate = useNavigate();
@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <div className="page-heading">
-        <img className="page-logo" src={s} alt="" />
+        <img className="page-logo" src={logo} alt="" />
         <h1>Партнеры</h1>
       </div>
       <ul className="partners-list">

@@ -13,7 +13,7 @@ export default function UpdatePartner() {
       id: partner.id,
       type: e.target.type.value,
       name: e.target.name.value,
-      ceo: e.target.CEO.value,
+      ceo: e.target.ceo.value,
       email: e.target.email.value,
       phone: e.target.phone.value,
       address: e.target.address.value,
@@ -41,8 +41,8 @@ export default function UpdatePartner() {
       <input id="rating" type="number" step="1" min='0' max='100' required defaultValue={partner.rating}/>
       <label htmlFor="address">Адрес:</label>
       <input id="address" type="text" required defaultValue={partner.address} />
-      <label htmlFor="CEO">ФИО директора:</label>
-      <input id="CEO" type="text" required defaultValue={partner.ceo} />
+      <label htmlFor="ceo">ФИО директора:</label>
+      <input id="ceo" type="text" required defaultValue={partner.ceo} />
       <label htmlFor="phone">Телефон:</label>
       <input id="phone" type="tel" required defaultValue={partner.phone} />
       <label htmlFor="email">Email компании:</label>
