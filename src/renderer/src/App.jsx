@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router";
 import { useNavigate } from "react-router-dom";
-import logo from './assets/s.png'
+import logo from './assets/logo.png'
 
 function App() {
   const navigate = useNavigate();
