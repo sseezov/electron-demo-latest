@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { useLocation } from 'react-router-dom';
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 
 export default function UpdatePartner() {
   useEffect(() => { document.title = 'Обновить партнера' }, [])

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router";
 import logo from './assets/logo.png'
 
 function App() {
